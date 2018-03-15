@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.projeto.negocios.exception.ClienteExistenteException;
 import com.projeto.negocios.exception.NenhumClienteCadastradoException;
 import com.projeto.negocios.exception.NomeInvalidoException;
+import com.projeto.negocios.exception.PedidoInvalidoException;
 import com.projeto.negocios.models.Cliente;
+import com.projeto.negocios.models.Pedido;
 import com.projeto.negocios.service.ClienteService;
 
 /**
@@ -25,6 +27,9 @@ public class ClienteController {
 
 	@Autowired
 	ClienteService cs;
+	
+	@Autowired
+	PedidoController pc;
 
 	@RequestMapping(value = "/novocadastro", method = RequestMethod.POST)
 	public String addCliente(Cliente cliente) throws ClienteExistenteException {
@@ -47,5 +52,10 @@ public class ClienteController {
 	{
 		cs.deleteCliente(nome);
 		return "/{nome}deletado";
+	}
+	
+	public Iterable<Pedido> listPedido(Cliente cliente) throws PedidoInvalidoException
+	{
+		return pc.listPedidoNome(cliente.getNome());
 	}
 }

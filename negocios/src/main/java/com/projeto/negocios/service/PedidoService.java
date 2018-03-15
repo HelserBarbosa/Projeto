@@ -79,5 +79,18 @@ public class PedidoService {
 		}
 		
 	}
+	
+	public Iterable<Pedido> listPedidoNome(String nome) throws PedidoInvalidoException
+	{	Iterable<Pedido> pedidos;
+		if(pr.findbyName(nome) == null) 
+		{
+			throw new PedidoInvalidoException();
+		}
+		else 
+		{
+			pedidos = pr.findbyName(nome);
+		}
+		return pedidos;
+	}
 
 }

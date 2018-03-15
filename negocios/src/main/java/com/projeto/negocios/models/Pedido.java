@@ -1,34 +1,80 @@
 package com.projeto.negocios.models;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
+	@Column
+	private String nome;
+
 	@Column
 	private String numero;
+
 	@Column
 	private String preco;
+
 	@Column
 	private String data;
-	
+
+	@ManyToOne
+	private Cliente cliente;
+
+	@OneToMany
+	private ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+
 	/**
 	 * @param numero
 	 * @param preco
 	 * @param data
 	 */
-	public Pedido(String numero, String preco, String data) {
+	public Pedido(String nome, String numero, String preco, String data) {
 		this.numero = numero;
 		this.preco = preco;
 		this.data = data;
+		this.nome = nome;
+	}
+
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente
+	 *            the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	/**
+	 * @return the pizzas
+	 */
+	public ArrayList<Pizza> getPizzas() {
+		return pizzas;
+	}
+
+	/**
+	 * @param pizzas
+	 *            the pizzas to set
+	 */
+	public void setPizzas(ArrayList<Pizza> pizzas) {
+		this.pizzas = pizzas;
 	}
 
 	/**
@@ -39,7 +85,8 @@ public class Pedido {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -53,7 +100,8 @@ public class Pedido {
 	}
 
 	/**
-	 * @param numero the numero to set
+	 * @param numero
+	 *            the numero to set
 	 */
 	public void setNumero(String numero) {
 		this.numero = numero;
@@ -67,7 +115,8 @@ public class Pedido {
 	}
 
 	/**
-	 * @param preco the preco to set
+	 * @param preco
+	 *            the preco to set
 	 */
 	public void setPreco(String preco) {
 		this.preco = preco;
@@ -81,13 +130,26 @@ public class Pedido {
 	}
 
 	/**
-	 * @param data the data to set
+	 * @param data
+	 *            the data to set
 	 */
 	public void setData(String data) {
 		this.data = data;
 	}
-	
-	
 
-	
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * @param nome
+	 *            the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 }

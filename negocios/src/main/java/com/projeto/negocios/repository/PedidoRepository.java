@@ -11,4 +11,5 @@ public interface PedidoRepository extends CrudRepository<Pedido, String> {
 	Pedido findByNumero(String numero);
 	void deleteByNumero(String numero);
 	Iterable<Pedido> findbyData(String data);
+	Iterable<Pedido> findbyName(String nome);
 }

@@ -1,10 +1,13 @@
 package com.projeto.negocios.models;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Classe com dados dos clientes
@@ -32,6 +35,23 @@ public class Cliente {
 
 	@Column
 	private String cnpf;
+	
+	@OneToMany
+	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+
+	/**
+	 * @return the pedidos
+	 */
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	/**
+	 * @param pedidos the pedidos to set
+	 */
+	public void setPedidos(ArrayList<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	/**
 	 * @param nome
