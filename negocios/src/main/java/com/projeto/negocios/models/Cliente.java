@@ -40,20 +40,6 @@ public class Cliente {
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 
 	/**
-	 * @return the pedidos
-	 */
-	public ArrayList<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	/**
-	 * @param pedidos the pedidos to set
-	 */
-	public void setPedidos(ArrayList<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	/**
 	 * @param nome
 	 * @param cidade
 	 * @param regiao
@@ -156,6 +142,20 @@ public class Cliente {
 	 */
 	public void setCnpf(String cnpf) {
 		this.cnpf = cnpf;
+	}
+
+	/**
+	 * @return the pedidos
+	 */
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	/**
+	 * @param pedidos the pedidos to set
+	 */
+	public void setPedidos(Pedido pedido) {
+		this.pedidos.add(pedido);
 	}
 
 }

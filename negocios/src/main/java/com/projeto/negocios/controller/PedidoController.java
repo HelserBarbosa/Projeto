@@ -27,6 +27,7 @@ public class PedidoController {
 	public String addPedido(Pedido pedido) throws PedidoInvalidoException, NomeInvalidoException 
 	{	Cliente cliente = cc.getCliente(pedido.getNome());
 		pedido.setCliente(cliente);
+		cliente.setPedidos(pedido);
 		ps.addPedido(pedido);
 		return "/novopedido";
 	}
