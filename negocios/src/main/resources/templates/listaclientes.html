@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmls:th="http://thymeleaf.org" xmls:layoute="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>Lista De Clientes</title>
+
+</head>
+<body>
+	<h1>Lista de Clientes</h1>
+	<h3>
+		<a href="/novocadastro">Novo Cadastro</a>
+	</h3>
+	<div th:each="cliente : ${clientes}"></div>
+	<div class="row">
+	<p><span th:text = "${cliente.nome}"></span></p>
+	<p><span th:text = "${cliente.cidade}"></span></p>
+	<p><span th:text = "${cliente.regiao}"></span></p>
+	<p><span th:text = "${cliente.telefone}"></span></p>
+	<p><span th:text = "${cliente.cnpj}"></span></p>
+	
+	</div>
+</body>
+</html>
