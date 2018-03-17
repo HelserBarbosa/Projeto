@@ -1,11 +1,15 @@
 package com.projeto.negocios.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.projeto.negocios.exception.ClienteExistenteException;
 import com.projeto.negocios.exception.NenhumClienteCadastradoException;
@@ -31,31 +35,36 @@ public class ClienteController {
 	@Autowired
 	PedidoController pc;
 
-	@RequestMapping(value = "/novocadastro", method = RequestMethod.POST)
-	public String addCliente(Cliente cliente) throws ClienteExistenteException {
+	@PostMapping(value = "/novocadastro")
+	public ResponseEntity<Cliente> addCliente(Cliente cliente) throws ClienteExistenteException {
 		cs.addCliente(cliente);
-		return "redirect:/novocadastro";
+		return new ResponseEntity<Cliente>(cliente,HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/listaclientes", method = RequestMethod.GET)
-	public Iterable<Cliente> listClientes() throws NenhumClienteCadastradoException {
-
-		return cs.listCliente();
+	@GetMapping(value = "/listaclientes")
+	public ResponseEntity<ArrayList<Cliente>> listClientes() throws NenhumClienteCadastradoException {
+		
+		return new ResponseEntity<ArrayList<Cliente>>((ArrayList)cs.listCliente(),HttpStatus.OK);
 	}
-	@RequestMapping(value = "/{nome}", method = RequestMethod.GET)
-	public Cliente getCliente(@PathVariable("nome") String nome) throws NomeInvalidoException 
+	@GetMapping(value = "/{nome}")
+	public ResponseEntity<Cliente> getCliente(@PathVariable("nome") String nome) throws NomeInvalidoException 
 	{
-		return cs.getCliente(nome);
+		return new ResponseEntity<Cliente>(cs.getCliente(nome),HttpStatus.OK);
 	}
-	@RequestMapping(value = "/{nome}deletado", method = RequestMethod.DELETE)
-	public String deleteCliente(@PathVariable("nome") String nome) throws NomeInvalidoException 
+	@DeleteMapping(value = "/{nome}deletado")
+	public ResponseEntity<String> deleteCliente(@PathVariable("nome") String nome) throws NomeInvalidoException 
 	{
 		cs.deleteCliente(nome);
-		return "/{nome}deletado";
+		return new ResponseEntity<String>(nome,HttpStatus.OK);
 	}
 	
-	public Iterable<Pedido> listPedido(Cliente cliente) throws PedidoInvalidoException
+	public ArrayList<Pedido> listPedido(Cliente cliente) throws PedidoInvalidoException
 	{
-		return pc.listPedidoNome(cliente.getNome());
+		return pc.ListaPedidoName(cliente.getNome());
+	}
+	
+	public Cliente getClient(String nome) throws NomeInvalidoException 
+	{
+		return cs.getCliente(nome);
 	}
 }

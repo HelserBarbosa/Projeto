@@ -1,10 +1,16 @@
 package com.projeto.negocios.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.projeto.negocios.exception.NenhumPedidoException;
 import com.projeto.negocios.exception.NomeInvalidoException;
@@ -23,36 +29,40 @@ public class PedidoController {
 	
 	ClienteController cc;
 	
-	@RequestMapping(value = "/novopedido",method = RequestMethod.POST)
-	public String addPedido(Pedido pedido) throws PedidoInvalidoException, NomeInvalidoException 
-	{	Cliente cliente = cc.getCliente(pedido.getNome());
+	@PostMapping(value = "/novopedido")
+	public ResponseEntity<Pedido> addPedido(Pedido pedido) throws PedidoInvalidoException, NomeInvalidoException 
+	{	Cliente cliente = cc.getClient(pedido.getNome());
 		pedido.setCliente(cliente);
 		cliente.setPedidos(pedido);
 		ps.addPedido(pedido);
-		return "/novopedido";
+		return new ResponseEntity<Pedido>(pedido,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/buscapedido/{data}",method = RequestMethod.GET)
-	public Iterable<Pedido> listaPedidoData(@PathVariable("data") String data) throws NenhumPedidoException 
+	@GetMapping(value = "/buscapedido/{data}")
+	public ResponseEntity<ArrayList<Pedido>> listaPedidoData(@PathVariable("data") String data) throws NenhumPedidoException 
 	{
-		return ps.listaPedidoData(data);
+		return new ResponseEntity<ArrayList<Pedido>>((ArrayList)ps.listaPedidoData(data),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/buscapedido/{numero}",method = RequestMethod.GET)
-	public Pedido getPedido(@PathVariable("numero") String numero) throws NenhumPedidoException 
+	@GetMapping(value = "/buscapedido/{numero}")
+	public ResponseEntity<Pedido> getPedido(@PathVariable("numero") String numero) throws NenhumPedidoException 
 	{
-		return ps.getPedido(numero);
+		return new ResponseEntity<Pedido>(ps.getPedido(numero),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/buscapedido/{numero}",method = RequestMethod.DELETE)
-	public String deletePedido(@PathVariable("numero") String numero) 
+	@DeleteMapping(value = "/buscapedido/{numero}")
+	public ResponseEntity<Pedido> deletePedido(@PathVariable("numero") String numero) throws NenhumPedidoException 
 	{
-		return "/pedido";
+		return new ResponseEntity<Pedido>(ps.deletePedido(numero),HttpStatus.OK);
 	}
-	@RequestMapping(value = "/buscapedido/{nome}")
-	public Iterable<Pedido> listPedidoNome(@PathVariable("nome")String nome) throws PedidoInvalidoException
+	@GetMapping(value = "/buscapedido/{nome}")
+	public ResponseEntity<ArrayList<Pedido>> listPedidoNome(@PathVariable("nome")String nome) throws PedidoInvalidoException
 	{
-		return ps.listPedidoNome(nome);
+		return new ResponseEntity<ArrayList<Pedido>>((ArrayList)ps.listPedidoNome(nome),HttpStatus.OK);
+	}
+	public ArrayList<Pedido> ListaPedidoName(String nome) throws PedidoInvalidoException
+	{
+		return (ArrayList<Pedido>)ps.listPedidoNome(nome);
 	}
 
 }

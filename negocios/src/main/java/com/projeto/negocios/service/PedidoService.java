@@ -67,8 +67,8 @@ public class PedidoService {
 	 * @param numero
 	 * @throws NenhumPedidoException
 	 * */
-	public void deletePedido(String numero) throws NenhumPedidoException 
-	{
+	public Pedido deletePedido(String numero) throws NenhumPedidoException 
+	{	
 		if(!pr.existsByNumero(numero)) 
 		{
 			throw new NenhumPedidoException();
@@ -77,7 +77,7 @@ public class PedidoService {
 		{
 			pr.deleteByNumero(numero);
 		}
-		
+		return pr.findByNumero(numero);
 	}
 	
 	public Iterable<Pedido> listPedidoNome(String nome) throws PedidoInvalidoException
