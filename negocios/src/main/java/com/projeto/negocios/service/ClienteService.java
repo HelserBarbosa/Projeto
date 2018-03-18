@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.projeto.negocios.exception.ClienteExistenteException;
 import com.projeto.negocios.exception.NenhumClienteCadastradoException;
 import com.projeto.negocios.exception.NomeInvalidoException;
+import com.projeto.negocios.exception.QuantidadeDeDigitosException;
 import com.projeto.negocios.models.Cliente;
 import com.projeto.negocios.repository.ClienteRepository;
 
@@ -26,9 +27,14 @@ public class ClienteService {
 	 * metodo para adicionar novos clientes no banco de dados
 	 * 
 	 * @throws ClienteExistenteException
+	 * @throws QuantidadeDeDigitosException 
 	 */
-	public void addCliente(Cliente cliente) throws ClienteExistenteException {
+	public void addCliente(Cliente cliente) throws ClienteExistenteException, QuantidadeDeDigitosException {
 
+		if(cliente.getCnpf().trim().length() == 11)
+		{
+			throw new QuantidadeDeDigitosException();
+		}
 		if (cr.existsByName(cliente.getNome())) {
 			throw new ClienteExistenteException();
 		} else {

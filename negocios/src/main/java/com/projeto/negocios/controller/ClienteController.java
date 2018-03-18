@@ -15,6 +15,7 @@ import com.projeto.negocios.exception.ClienteExistenteException;
 import com.projeto.negocios.exception.NenhumClienteCadastradoException;
 import com.projeto.negocios.exception.NomeInvalidoException;
 import com.projeto.negocios.exception.PedidoInvalidoException;
+import com.projeto.negocios.exception.QuantidadeDeDigitosException;
 import com.projeto.negocios.models.Cliente;
 import com.projeto.negocios.models.Pedido;
 import com.projeto.negocios.service.ClienteService;
@@ -36,7 +37,7 @@ public class ClienteController {
 	PedidoController pc;
 
 	@PostMapping(value = "/novocadastro")
-	public ResponseEntity<Cliente> addCliente(Cliente cliente) throws ClienteExistenteException {
+	public ResponseEntity<Cliente> addCliente(Cliente cliente) throws ClienteExistenteException, QuantidadeDeDigitosException {
 		cs.addCliente(cliente);
 		return new ResponseEntity<Cliente>(cliente,HttpStatus.OK);
 	}

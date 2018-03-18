@@ -21,19 +21,19 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column
+	@Column(nullable = false)
 	private String nome;
 
-	@Column
+	@Column(nullable = false)
 	private String cidade;
 
-	@Column
+	@Column(nullable = false)
 	private String regiao;
 
-	@Column
+	@Column(nullable = false)
 	private String telefone;
 
-	@Column
+	@Column(nullable = false)
 	private String cnpf;
 	
 	@OneToMany

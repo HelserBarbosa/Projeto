@@ -17,16 +17,16 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	private String nome;
 
-	@Column
+	@Column(nullable = false)
 	private String numero;
 
-	@Column
+	@Column(nullable = false)
 	private String preco;
 
-	@Column
+	@Column(nullable = false)
 	private String data;
 
 	@ManyToOne
